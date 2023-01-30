@@ -1,0 +1,26 @@
+table {
+    width: 400px;
+    font-size: large;
+}
+
+th {
+    background-color: lightgrey;
+}
+
+th, caption {
+    text-align: left;
+}
+
+th, td {
+    padding: 10px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.standard_text {
+    font-size: large;
+}
+

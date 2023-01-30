@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person Page</title>
+    <link rel="stylesheet" type="text/css" href="../css/base_styles.css" th:href="@{/css/base_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/button_styles.css" th:href="@{/css/button_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/edit_styles.css" th:href="@{/css/edit_styles.css}">
+</head>
+<body>
+<div style="max-width: 800px; margin: 0 auto; padding: 15px">
+    <table style="margin: auto">
+        <caption>Данные человека</caption>
+        <tr>
+            <th>id</th>
+            <th>ФИО</th>
+            <th>Год рождения</th>
+        </tr>
+        <tr>
+            <td th:text="${person.getPersonId()}">Id</td>
+            <td th:text="${person.getFullName()}">Name</td>
+            <td th:text="${person.getYearOfBirth()}">Name</td>
+        </tr>
+    </table>
+    <br>
+    <hr>
+    <div th:if="${!books.isEmpty()}">
+        <table style="margin: auto">
+            <caption>Книги</caption>
+            <tr>
+                <th>id</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th>Год выпуска</th>
+            </tr>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.getBookId()}">Id</td>
+                <td th:text="${book.getBookName()}">BookName</td>
+                <td th:text="${book.getAuthorName()}">AuthorName</td>
+                <td th:text="${book.getYearOfPublication()}">YearOfPublication</td>
+            </tr>
+        </table>
+    </div>
+    <!-- ELSE -->
+    <div th:unless="${!books.isEmpty()}">
+        <div class="standard_text">Человек пока не взял ни одной книги</div>
+    </div>
+
+
+    <hr>
+    <p><a th:href="@{/people/{id}/edit(id = ${person.getPersonId()})}" class="round_button">Редактировать</a></p>
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getPersonId()})}" th:object="${person}">
+        <input type="submit" value="Удалить">
+    </form>
+</div>
+</body>
+</html>

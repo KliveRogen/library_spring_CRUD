@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница книги</title>
+    <link rel="stylesheet" type="text/css" href="../css/base_styles.css" th:href="@{/css/base_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/button_styles.css" th:href="@{/css/button_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/edit_styles.css" th:href="@{/css/edit_styles.css}">
+</head>
+<body>
+<div style="max-width: 800px; margin: 0 auto; padding: 15px">
+    <table style="margin: auto">
+        <caption>Данные книги</caption>
+        <tr>
+            <th>Название</th>
+            <th>Автора</th>
+            <th>Год публикации</th>
+        </tr>
+        <tr>
+            <td th:text="${book.getBookName()}">BookName</td>
+            <td th:text="${book.getAuthorName()}">AuthorName</td>
+            <td th:text="${book.getYearOfPublication()}">Year</td>
+        </tr>
+    </table>
+    <hr>
+    <div th:if="${owner}" class="standard_text">
+        <p th:text="'Книга сейчас у ' + ${owner.getFullName()}">Книга сейчас у Error Person</p>
+        <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getBookId()})}" th:object="${book}">
+            <input class="standard_text" type="submit" value="Освободить книгу">
+        </form>
+    </div>
+    <div th:unless="${owner}" class="standard_text">
+        <p>Эта книга свободна, кому назначить ее?</p>
+        <form th:method="PATCH" th:action="@{/books/{id}/assign(id=${book.getBookId()})}">
+            <label for="personList">Выберите человека:</label>
+            <select th:object="${assignPerson}" th:field="*{personId}" id="personList">
+                <option th:each="assignPerson : ${people}" th:value="${assignPerson.getPersonId()}"
+                        th:text="${assignPerson.getFullName()}"></option>
+            </select>
+            <input class="standard_text" type="submit" value="Назначить книгу">
+        </form>
+    </div>
+
+
+    <hr>
+    <p><a th:href="@{/books/{id}/edit(id = ${book.getBookId()})}" class="round_button">Редактировать</a></p>
+    <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getBookId()})}" th:object="${book}">
+        <input type="submit" value="Удалить">
+    </form>
+</div>
+</body>
+</html>

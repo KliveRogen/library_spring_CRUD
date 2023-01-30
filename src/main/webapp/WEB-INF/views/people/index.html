@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список читателей</title>
+    <link rel="stylesheet" type="text/css" href="../css/base_styles.css" th:href="@{/css/base_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/button_styles.css" th:href="@{/css/button_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/edit_styles.css" th:href="@{/css/edit_styles.css}">
+</head>
+<body>
+<div style="max-width: 800px; margin: 0 auto; padding: 15px">
+
+    <table style="margin: auto">
+        <caption>Читатели</caption>
+        <tr>
+            <th>id</th>
+            <th>ФИО</th>
+            <th>Год рождения</th>
+        </tr>
+        <tr th:each="person : ${people}">
+            <td>
+                <a th:href="@{/people/{id}(id=${person.getPersonId()})}" th:text="${person.getPersonId()}">Id</a>
+            </td>
+            <td>
+                <a th:href="@{/people/{id}(id=${person.getPersonId()})}" th:text="${person.getFullName()}">Name</a>
+            </td>
+            <td>
+                <a th:href="@{/people/{id}(id=${person.getPersonId()})}" th:text="${person.getYearOfBirth()}">Year Of Birth</a>
+            </td>
+
+        </tr>
+
+    </table>
+    <hr>
+
+    <p>
+        <a href="/people/new" class="round_button">Добавить нового читателя</a>
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+    <link rel="stylesheet" type="text/css" href="../css/base_styles.css" th:href="@{/css/base_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/button_styles.css" th:href="@{/css/button_styles.css}">
+    <link rel="stylesheet" type="text/css" href="../css/edit_styles.css" th:href="@{/css/edit_styles.css}">
+</head>
+<body>
+<div style="max-width: 800px; margin: 0 auto; padding: 15px">
+
+    <table style="margin: auto">
+        <caption>Читатели</caption>
+        <tr>
+            <th>Название</th>
+            <th>Автор</th>
+            <th>Год публикации</th>
+        </tr>
+        <tr th:each="book : ${books}">
+            <td>
+                <a th:href="@{/books/{id}(id=${book.getBookId()})}" th:text="${book.getBookName()}">Id</a>
+            </td>
+            <td>
+                <a th:href="@{/books/{id}(id=${book.getBookId()})}" th:text="${book.getAuthorName()}">Name</a>
+            </td>
+            <td>
+                <a th:href="@{/books/{id}(id=${book.getBookId()})}" th:text="${book.getYearOfPublication()}">Year Of Birth</a>
+            </td>
+
+        </tr>
+
+    </table>
+    <hr>
+
+    <p>
+        <a href="/books/new" class="round_button">Добавить книгу</a>
+    </p>
+</div>
+</body>
+</html>
